@@ -231,8 +231,7 @@ class BinarySearchTree:
             self._print(node.left_child, level + 1)
             print(' ' * 4 * level + '->' + str(node.value))
             self._print(node.right_child, level + 1)
-        
-    
+   
     def __iadd__(self, other):
         return self._iadd(self.root, other, other.root)
     def _iadd(self, node1, other, node2):
