@@ -7,7 +7,7 @@ tree3 = imp.BinarySearchTree()
 
 """
 'Insert' function adds elements to the Binary Search Tree.
-It raises an exception the user inserts a non-integer value, telling to input a number.
+It raises an exception in case the user inserts a non-integer value, telling to input a number.
 The funtion can also get non positive numbers.
 """
 tree1.insert(5)
