@@ -9,6 +9,7 @@ class BinarySearchTree:
         self.root = None 
     
     def insert(self, value):
+        """Inserts the nodes"""
         if not isinstance(value,int):
             raise Exception("Please, enter an integer!")
         if self.root == None:
@@ -59,6 +60,7 @@ class BinarySearchTree:
             print(current.value)
 
     def levelorder(self):
+        """Prints the tree with levels"""
         (self._levelorder(self.root))
 
     def _levelorder(self, root):
@@ -73,6 +75,7 @@ class BinarySearchTree:
                 queue.append(root.right_child)    
 
     def erase(self, value):
+        """Gets a value and deletes the node with that value"""
         self._erase(self.root, value, None, None)
 
     def _erase(self, current, value, previous, is_left):
@@ -103,12 +106,14 @@ class BinarySearchTree:
                 return self._erase(current.right_child, value, current, False) 
 
     def get_min_right(self, current):
+        """Returns the node which is on the right side and has the minimum value"""
         if current.left_child is None:
             return current
         else:
             self.get_min_right(current.left_child)
 
     def get_height(self):
+        """Returns the height of the tree, that is the number of its levels."""
         if self.root != None:
             return self._get_height(self.root, 0)
         else:
@@ -122,12 +127,14 @@ class BinarySearchTree:
         return max(left_height, right_height)
 
     def __contains__(self, value):
+        """Overloads the 'in' operator"""
         if self.root != None:
             return self._contains(value, self.root)
         else:
             return False
 
     def contains(self, value):
+        """Gets a value and checks if there is a node in the tree with the given value."""
         if self.root != None:
             return self._contains(value, self.root)
         else:
@@ -143,6 +150,7 @@ class BinarySearchTree:
         return False   
 
     def find(self, value):
+        """Gets a value, finds the node with that value, returns another variable assigned to that valu."""
         if self.root != None:
             return self._find(value, self.root)
         return None
@@ -157,9 +165,11 @@ class BinarySearchTree:
             return self._find(value, current_node.right_child)
 
     def get_root_data(self):
+        """Returnes the value of the root node"""
         return self.root.value
     
     def get_number_of_nodes(self):
+        """Counts how many nodes there are in the tree"""
         return self._get_number_of_nodes(self.root)
 
     def _get_number_of_nodes(self, child):
@@ -173,6 +183,7 @@ class BinarySearchTree:
     lst1 = []
 
     def inorder_to_list(self, lst):
+        """Returnes a list consistiong of the values of inordered tree nodes."""
         return (self._inorder_to_list(self.root, lst))
 
     def _inorder_to_list(self, current, lst):
@@ -183,16 +194,19 @@ class BinarySearchTree:
         return (lst)
     
     def merge(self, other_tree):
+        """Returns a tree which contains all the nodes both from the first and the second trees."""
         other_tree.inorder_to_list(lst1)
         for ele in set(lst1):
             self.insert(ele)
         print(self)
 
     def clear(self):
+        """Deletes all the nodes of the given tree."""
         self.del_leaf_node(self.root)
         self.erase(self.root.value)
 
     def del_leaf_node(self, root):
+        """Deletes a node if it is a leaf, i.e has no child nodes. """
         if root is None:
             return None
         if (root.left_child is None) and (root.right_child is None):
@@ -201,6 +215,7 @@ class BinarySearchTree:
         root.right_child = self.del_leaf_node(root.right_child)
 
     def __eq__(self, other):
+        """'==' operator checks if two trees are equal"""
         if self.root is None and other.root is None:
             return True
         if (self.root and other.root) and (self.root.value == other.root.value):
@@ -212,6 +227,7 @@ class BinarySearchTree:
         return False
 
     def __ne__(self, other):
+        """'!=' operator checks if two trees are not equal"""
         if self.root is None and other.root is None:
             return False
         if (self.root and other.root) and (self.root.value == other.root.value):
@@ -223,6 +239,7 @@ class BinarySearchTree:
         return True
 
     def __str__(self):
+        """Prints the tree"""
         result = self._print(self.root, 0)
         return str(result)
 
@@ -233,6 +250,7 @@ class BinarySearchTree:
             self._print(node.right_child, level + 1)
    
     def __iadd__(self, other):
+        """'+=' operator adds the nodes of the second given tree to the corresponding nodes of the first one."""
         return self._iadd(self.root, other, other.root)
     def _iadd(self, node1, other, node2):
         if not node1:
@@ -249,6 +267,7 @@ class BinarySearchTree:
     lst3 = []
     
     def __add__(self, other):
+        """'+' operator adds two trees"""
         new_tree = BinarySearchTree()
         self.inorder_to_list(lst2)
         other.inorder_to_list(lst3)
