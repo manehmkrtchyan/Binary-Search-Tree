@@ -4,6 +4,11 @@ The left subtree of a node contains only nodes with keys lesser than the node’
 The right subtree of a node contains only nodes with keys greater than the node’s key.
 The left and right subtree each must also be a binary search tree.
 
+
+First to build a Binary Search Tree the user needs to insert the elements. That can be done with the insert() function. The user needs to call the frunction on the tree object that was declared earlier(for example tree = BinarySearchTree()) and give the node value as an argument. The result will be something like this: tree.insert(5). Now the user has got a binary search tree with one node, that has 5 as a value. The user can insert as many nodes as he/she wants. To see the tree represented on the standart output the user needs to use the print() function.
+Also the user can use all the functions and operations listed below in the same way.
+
+
 Operators
 ● Copy operator assignment =
 ● Move operator assignment =
