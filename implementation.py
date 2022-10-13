@@ -4,18 +4,13 @@ class Node:
         self.left_child = None
         self.right_child = None 
 
-    # def __iadd__(self, other_node):
-    #     self.value = self.value + other_node.value
-    #     return self
-    
-
 class BinarySearchTree:
     def __init__(self):
         self.root = None 
     
     def insert(self, value):
         if not isinstance(value,int):
-            raise Exception("Please, enter a integer!")
+            raise Exception("Please, enter an integer!")
         if self.root == None:
             self.root = Node(value)
         else: 
@@ -64,7 +59,7 @@ class BinarySearchTree:
             print(current.value)
 
     def levelorder(self):
-        self._levelorder(self.root)
+        (self._levelorder(self.root))
 
     def _levelorder(self, root):
         queue = []
@@ -172,24 +167,26 @@ class BinarySearchTree:
             return 0
         return 1 + self._get_number_of_nodes(child.left_child) + self._get_number_of_nodes(child.right_child) 
     
-    global lst
-    lst = []
+    # global lst
+    # lst = []
+    global lst1
+    lst1 = []
 
-    def inorder_to_list(self):
-        return (self._inorder_to_list(self.root))
+    def inorder_to_list(self, lst):
+        return (self._inorder_to_list(self.root, lst))
 
-    def _inorder_to_list(self, current):
+    def _inorder_to_list(self, current, lst):
         if current != None:
-            self._inorder_to_list(current.left_child)
+            self._inorder_to_list(current.left_child, lst)
             lst.append(current.value)
-            self._inorder_to_list(current.right_child)
+            self._inorder_to_list(current.right_child, lst)
         return (lst)
-
+    
     def merge(self, other_tree):
-        other_tree.inorder_to_list()
-        for ele in set(lst):
+        other_tree.inorder_to_list(lst1)
+        for ele in set(lst1):
             self.insert(ele)
-        return self.inorder()
+        print(self)
 
     def clear(self):
         self.del_leaf_node(self.root)
@@ -248,24 +245,32 @@ class BinarySearchTree:
         self._iadd(node1.right_child, other, node2.right_child)
         return self
 
-    # def __add__(self, other):
-    #     return self._add(self.root, other, other.root)
-    # def _add(self, node1, other, node2):
-    #     res_tree = BinarySearchTree()
-    #     # node = Node(res_tree.root)
-    #     if not node1:
-    #         return other
-    #     if not node2:
-    #         return self
-        
-    #     res_tree.insert(node1.value + node2.value)
-    #     self._add(node1.left_child, other, node2.left_child)
-    #     self._add(node1.right_child, other, node2.right_child)
-    #     return res_tree
-
-
-    # def ____(self, other):
-    # def ____(self, other):
+    global lst2, lst3
+    lst2 = []
+    lst3 = []
+    
+    def __add__(self, other):
+        new_tree = BinarySearchTree()
+        self.inorder_to_list(lst2)
+        other.inorder_to_list(lst3)
+        if len(lst3) > len(lst2):
+            times = len(lst3) - len(lst2)
+            while times > 0:
+                lst2.append(0)
+                times -= 1
+        else:
+            times = len(lst2) - len(lst3)
+            while times > 0:
+                lst3.append(0)
+                times -= 1
+        res_lst = lst3
+        for i in range(len(res_lst)):
+            res_lst[i] += lst2[i]
+        import random
+        random.shuffle(res_lst)
+        for i in res_lst:
+            new_tree.insert(i)
+        return new_tree    
 
 tree1 = BinarySearchTree()
 tree21 = BinarySearchTree()
@@ -312,7 +317,7 @@ tree3.insert(4)
 #print(tree1 == tree2)
 # print(tree1 == tree3)
 # print(tree1 != tree3)
-#print(tree1.merge(tree2))
+#print(tree1.merge(tree21))
 #tree1 += tree21
 #print(305 in tree1)
 #tree1 += tree21
